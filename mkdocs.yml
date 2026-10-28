@@ -1,6 +1,6 @@
-
-site_name: 我的知识库
-site_description: 个人技术文档与知识库
+site_name: 我的技术知识库
+site_description: 个人技术文档、部署教程与故障排查记录
+site_author: 
 
 docs_dir: .cloudflare-docs
 site_dir: site
@@ -9,6 +9,28 @@ theme:
   name: material
   language: zh
 
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到深色模式
+
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: 切换到浅色模式
+
 plugins:
   - search
 
@@ -16,8 +38,14 @@ markdown_extensions:
   - admonition
   - attr_list
   - md_in_html
+  - tables
+  - footnotes
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
 
 
 # 不把仓库管理文件当作文档发布
