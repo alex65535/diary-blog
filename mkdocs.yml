@@ -2,10 +2,7 @@
 site_name: 我的知识库
 site_description: 个人技术文档与知识库
 
-# 直接读取现有仓库目录中的 Markdown 和图片
-docs_dir: .
-
-# Cloudflare Pages 发布目录
+docs_dir: .cloudflare-docs
 site_dir: site
 
 theme:
@@ -21,6 +18,7 @@ markdown_extensions:
   - md_in_html
   - pymdownx.details
   - pymdownx.superfences
+
 
 # 不把仓库管理文件当作文档发布
 exclude_docs: |
