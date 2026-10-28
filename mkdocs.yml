@@ -10,8 +10,8 @@ theme:
   language: zh
 
   features:
-    - navigation.tabs
-    - navigation.sections
+    # - navigation.tabs
+    # - navigation.sections
     - toc.follow
     - search.suggest
     - search.highlight
