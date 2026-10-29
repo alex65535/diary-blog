@@ -1,6 +1,7 @@
 site_name: 我的技术知识库
 site_description: 个人技术文档、部署教程与故障排查记录
 site_author: 
+copyright: Copyright © 2026 我的技术知识库
 
 docs_dir: .cloudflare-docs
 site_dir: site
