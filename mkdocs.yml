@@ -47,7 +47,9 @@ markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
 
-
+extra:
+  generator: false
+  
 # 不把仓库管理文件当作文档发布
 exclude_docs: |
   .git/
