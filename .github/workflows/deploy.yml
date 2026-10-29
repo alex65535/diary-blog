@@ -1,0 +1,82 @@
+
+name: Build and deploy MkDocs
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - name: Install MkDocs Material
+        run: pip install mkdocs-material
+
+      - name: Prepare documentation
+        run: |
+          python - <<'PY'
+          import shutil
+          from pathlib import Path
+
+          source = Path(".")
+          target = Path(".cloudflare-docs")
+
+          shutil.rmtree(target, ignore_errors=True)
+          ignored = {
+              ".git", ".github", ".vscode", ".idea",
+              ".cloudflare-docs", "site", "overrides",
+              "mkdocs.yml", "README.md", ".gitignore",
+              "LICENSE", "requirements.txt"
+          }
+
+          target.mkdir(parents=True, exist_ok=True)
+
+          for item in source.iterdir():
+              if item.name in ignored:
+                  continue
+
+              destination = target / item.name
+
+              if item.is_dir():
+                  shutil.copytree(item, destination)
+              elif item.is_file():
+                  shutil.copy2(item, destination)
+          PY
+
+      - name: Build site
+        run: mkdocs build --strict
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -49,7 +49,7 @@ markdown_extensions:
 
 extra:
   generator: false
-  
+
 # 不把仓库管理文件当作文档发布
 exclude_docs: |
   .git/
